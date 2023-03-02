@@ -1,69 +1,98 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+@media (prefers-color-scheme: dark) {
+    html {
+        --background: #121212;
+        --primary: #ffdd67;
+        --primaryShadow: #ffcc1b;
+        --secondary: #ff5a79;
+        --secondaryShadow: #f3002e;
+        --textInPrimary: #000;
+        --textInSecondary: #fff;
+        --footerBackground: #00e5ff;
+        --cardBackground: #2b2b2b;
+        --cardText: #fff;
+        --emojiCodeText: #fff;
+        --cardShadow: none;
+        --notificationText: #fff;
+        --notificationShadow: rgba(0, 0, 0, 0.05);
+        --notificationEmojiCodeColor: rgba(0, 0, 0, 0.85);
+        --menuBackground: #ff5a79;
+        --carbonAdBadgeBackground: #2b2b2b;
+    }
+    .card:hover {
+        box-shadow: none;
+        background-color: #3b3b3b;
+    }
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+    html {
+        --background: #fff;
+        --primary: #ffdd67;
+        --primaryShadow: #ffcc1b;
+        --secondary: #ff5a79;
+        --secondaryShadow: #f3002e;
+        --textInPrimary: #000;
+        --textInSecondary: #fff;
+        --footerBackground: #00e5ff;
+        --cardBackground: #fff;
+        --cardText: #999;
+        --emojiCodeText: #000;
+        --cardShadow: rgba(168, 182, 191, 0.6);
+        --notificationText: #fff;
+        --notificationShadow: rgba(0, 0, 0, 0.05);
+        --notificationEmojiCodeColor: rgba(0, 0, 0, 0.85);
+        --menuBackground: #ff5a79;
+        --carbonAdBadgeBackground: #f1f1f1;
+    }
+}
+body,
+html {
+    background-color: var(--background);
+    color: var(--cardText);
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+a:hover {
+    color: var(--cardText);
+    text-decoration: underline;
+}
+.header__item,
+.header__title {
+    font-family: "Roboto Mono","DejaVu Sans Mono","Consolas",monospace;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.header__item {
+    float: right;
+    justify-content: flex-end;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.header__title {
+    float: left;
+    justify-content: flex-start;
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+.header {
+    background-color: var(--background);
+}
+.form-control:focus {
+    background-color: var(--cardBackground);
+    color: var(--text);
+    box-shadow: none;
+}
+.search {
+    background-color: var(--cardBackground);
+    color: var(--text);
+    border-radius: 4px;
+    border: 0;
+    box-shadow: 0 2px 4px 0 var(--cardShadow);
+    flex: 1 1;
+    font-size: 1rem;
+    padding: 1rem;
+    margin-right: 1rem;
 }

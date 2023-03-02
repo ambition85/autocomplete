@@ -9,6 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@jukben/emoji-search": "^2.0.1",
+    "@webscopeio/react-textarea-autocomplete": "^4.9.2",
+    "bootstrap": "^5.2.3",
+    "bootswatch": "^5.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
