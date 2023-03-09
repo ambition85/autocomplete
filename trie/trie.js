@@ -5,7 +5,7 @@ function Node(value, weight) {
     this.children = {};
 }
 
-class Trie {
+export class Trie {
     constructor() {
         this.root = new Node(null);
     }
@@ -23,25 +23,22 @@ class Trie {
     }
 
     find(prefix, curr, suggestions, limit) {
-
+        if (suggestions.length >= limit) {
+            return;
+        }
         if (curr.endOfWord) {
             suggestions.push(prefix);
             console.log(prefix, suggestions.length);
         }
-        if (!Object.keys(curr.children).length || suggestions.length >= limit) {
+        if (!Object.keys(curr.children).length) {
             return;
         }
         for (let char in curr.children) {
-            this.find(
-                prefix + char,
-                curr.children[char],
-                suggestions,
-                limit
-            );
+            this.find(prefix + char, curr.children[char], suggestions, limit);
         }
     }
 
-    suggest(prefix, limit = 1) {
+    suggest(prefix, limit = 10) {
         let len = 0;
         let curr = this.root;
         while (prefix.length > len) {
@@ -57,17 +54,16 @@ class Trie {
     }
 }
 
-let list = [
-    "hello",
-    "dog",
-    "hell",
-    "cat",
-    "a",
-    "help",
-    "helps",
-    "helping",
-];
-let trie = new Trie();
-list.forEach((word) => trie.insert(word));
+// let list = [
+//     "hello",
+//     "dog",
+//     "hell",
+//     "cat",
+//     "a",
+//     "help",
+//     "helps",
+//     "helping",
+// ];
+// let trie = new Trie();
+// list.forEach((word) => trie.insert(word));
 // console.log(trie.suggest("hel"));
-console.log(JSON.stringify(trie));
