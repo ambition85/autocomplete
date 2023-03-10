@@ -1,40 +1,51 @@
-function Node(value, weight) {
-    this.value = value;
-    this.weight = weight;
-    this.endOfWord = false;
-    this.children = {};
+function Node(weight) {
+    this.w = weight;
+    this.e = 0;
+    this.c = {};
 }
 
 export class Trie {
     constructor() {
-        this.root = new Node(null);
+        this.root = new Node(0);
     }
 
-    insert(word) {
+    insert(word, weight) {
         let curr = this.root;
 
         for (let character of word) {
-            if (curr.children[character] === undefined) {
-                curr.children[character] = new Node(character, 1);
+            if (curr.c[character] === undefined) {
+                curr.c[character] = new Node(0);
             }
-            curr = curr.children[character];
+            curr = curr.c[character];
         }
-        curr.endOfWord = true;
+        curr.w = weight;
+        curr.e = 1;
+    }
+
+    sort(curr = this.root) {
+        const sorted = Object.fromEntries(
+            Object.entries(curr.c).sort(
+                ([, a], [, b]) => b.w - a.w
+            )
+        );
+        curr.c = sorted;
+        for (let char in curr.c) {
+            this.sort(curr.c[char]);
+        }
     }
 
     find(prefix, curr, suggestions, limit) {
         if (suggestions.length >= limit) {
             return;
         }
-        if (curr.endOfWord) {
-            suggestions.push(prefix);
-            console.log(prefix, suggestions.length);
+        if (curr.e) {
+            suggestions.push({ word: prefix, weight:  curr.w});
         }
-        if (!Object.keys(curr.children).length) {
+        if (!Object.keys(curr.c).length) {
             return;
         }
-        for (let char in curr.children) {
-            this.find(prefix + char, curr.children[char], suggestions, limit);
+        for (let char in curr.c) {
+            this.find(prefix + char, curr.c[char], suggestions, limit);
         }
     }
 
@@ -42,28 +53,15 @@ export class Trie {
         let len = 0;
         let curr = this.root;
         while (prefix.length > len) {
-            if (!curr.children[prefix[len]]) {
+            if (!curr.c[prefix[len]]) {
                 return [];
             }
-            curr = curr.children[prefix[len]];
+            curr = curr.c[prefix[len]];
             len++;
         }
         const suggestions = [];
         this.find(prefix, curr, suggestions, limit);
+        suggestions.sort((a, b) => (a.weight > b.weight) ? -1 : 1)
         return suggestions;
     }
 }
-
-// let list = [
-//     "hello",
-//     "dog",
-//     "hell",
-//     "cat",
-//     "a",
-//     "help",
-//     "helps",
-//     "helping",
-// ];
-// let trie = new Trie();
-// list.forEach((word) => trie.insert(word));
-// console.log(trie.suggest("hel"));

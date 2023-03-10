@@ -24,14 +24,23 @@ const wordList = fs.readFileSync("words_alpha.txt", "utf-8");
 
 const words = {};
 wordList.split(/\r?\n/).forEach((line) => {
-    if (line in word_freq) {
-        words[line] = Math.round((word_freq[line] / max) * 10000) / 10000;
+    if (line in word_freq && line.length <= 12) {
+        words[line] =
+            Math.round((word_freq[line] / (max * (line.length-3))) * 10000) / (10000);
     }
 });
 
-
-let words_no_weight = Object.keys(words);
+// let words_no_weight = Object.keys(words);
 
 let trie = new Trie();
-words_no_weight.forEach((word) => trie.insert(word));
-console.log(trie.suggest("hel"));
+// words_no_weight.forEach((word) => trie.insert(word));
+for (let word in words) {
+    trie.insert(word, words[word]);
+}
+trie.sort();
+
+// console.log(trie.suggest("hel"));
+// console.log(trie.suggest("held"));
+// console.log(trie.suggest("heldentenor"));
+
+console.log(JSON.stringify(trie));
