@@ -64,4 +64,8 @@ export class Trie {
         suggestions.sort((a, b) => (a.weight > b.weight) ? -1 : 1)
         return suggestions;
     }
+
+    static from(json){
+        return Object.assign(new Trie(), json);
+      }
 }
