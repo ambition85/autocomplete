@@ -31,46 +31,45 @@ class App extends Component {
                         </p>
                     </header>
                 </div>
-    
+
                 <div className="row">
                     <div className="mb-4">
-                        
-                    <ReactTextareaAutocomplete
-                        className="form-control search"
-                        loadingComponent={Loading}
-                        style={{
-                            // fontSize: "18px",
-                            // lineHeight: "20px",
-                            // padding: 5,
-                        }}
-                        ref={(rta) => {
-                            this.rta = rta;
-                        }}
-                        innerRef={(textarea) => {
-                            this.textarea = textarea;
-                        }}
-                        containerStyle={{
-                            height: "75vh",
-                        }}
-                        dropdownStyle={{
-                            // backgroundColor: "#3b3b3b",
-                            color: "black"
-                        }}
-                        minChar={3}
-                        trigger={{
-                            " ": {
-                                dataProvider: (token) => {
-                                    console.log(token);
-                                    return trie
-                                        .suggest(token)
-                                        .slice(0, 10)
-                                        .map(({ name, char }) => ({ name, char }));
+                        <ReactTextareaAutocomplete
+                            className="form-control search"
+                            loadingComponent={Loading}
+                            movePopupAsYouType={true}
+                            placeholder={"Start typing to see suggestions!"}
+                            ref={(rta) => {
+                                this.rta = rta;
+                            }}
+                            innerRef={(textarea) => {
+                                this.textarea = textarea;
+                            }}
+                            containerStyle={{
+                                height: "75vh",
+                            }}
+                            dropdownStyle={{
+                                // backgroundColor: "#3b3b3b",
+                                color: "black",
+                            }}
+                            minChar={3}
+                            trigger={{
+                                " ": {
+                                    dataProvider: (token) => {
+                                        console.log(token);
+                                        return trie
+                                            .suggest(token)
+                                            .slice(0, 10)
+                                            .map(({ name, char }) => ({
+                                                name,
+                                                char,
+                                            }));
+                                    },
+                                    component: Item,
+                                    output: (item, trigger) => " " + item.char,
                                 },
-                                component: Item,
-                                output: (item, trigger) => " " + item.char,
-                            },
-                        }}
-                    />
+                            }}
+                        />
                     </div>
                 </div>
             </div>
