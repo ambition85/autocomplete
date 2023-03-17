@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import ReactTextareaAutocomplete from "@webscopeio/react-textarea-autocomplete";
 import { Trie } from "../public/trie";
-import json from "../public/trie.json";
+import json from "./trie.json";
+import Navbar from "./navbar";
 
 import "./App.css";
 import "@webscopeio/react-textarea-autocomplete/style.css";
@@ -16,21 +17,7 @@ class App extends Component {
     render() {
         return (
             <div className="container">
-                <div className="row">
-                    <header className="header mt-5 mb-4">
-                        <h1 className="header__title">Autocomplete</h1>
-                        <p className="header__item">
-                            <a href="https://github.com/Aveek-Saha/autocomplete">
-                                <i
-                                    className="bi-github me-2"
-                                    role="img"
-                                    aria-label="GitHub"
-                                />
-                                GitHub
-                            </a>
-                        </p>
-                    </header>
-                </div>
+                <Navbar></Navbar>
 
                 <div className="row">
                     <div className="mb-4">
