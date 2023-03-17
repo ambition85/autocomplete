@@ -3,24 +3,25 @@ import ReactTextareaAutocomplete from "@webscopeio/react-textarea-autocomplete";
 import { Trie } from "../public/trie";
 import json from "./trie.json";
 import Navbar from "./navbar";
+import Settings from "./Settings";
 
 import "./App.css";
 import "@webscopeio/react-textarea-autocomplete/style.css";
 
 const Item = ({ entity: { name, char } }) => <div>{`${name}`}</div>;
-const Loading = ({ data }) => <div>Loading</div>;
+const Loading = ({ data }) => <div>Loading...</div>;
 
-// const json = JSON.parse(jsonFile)
 let trie = Trie.from(json);
+let limit = 50
 
 class App extends Component {
     render() {
         return (
             <div className="container">
-                <Navbar></Navbar>
+                <Navbar/>
 
                 <div className="row">
-                    <div className="mb-4">
+                    <div className="col-8 mb-4">
                         <ReactTextareaAutocomplete
                             className="form-control search"
                             loadingComponent={Loading}
@@ -43,9 +44,8 @@ class App extends Component {
                             trigger={{
                                 " ": {
                                     dataProvider: (token) => {
-                                        console.log(token);
                                         return trie
-                                            .suggest(token)
+                                            .suggest(token, limit)
                                             .slice(0, 10)
                                             .map(({ name, char }) => ({
                                                 name,
@@ -57,6 +57,9 @@ class App extends Component {
                                 },
                             }}
                         />
+                    </div>
+                    <div className="col-4">
+                        <Settings/>
                     </div>
                 </div>
             </div>

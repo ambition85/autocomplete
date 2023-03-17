@@ -38,7 +38,7 @@ for (let word in words) {
 trie.sort();
 
 console.time("save");
-fs.writeFile("../public/trie.json", JSON.stringify(trie), (err) => {
+fs.writeFile("../src/trie.json", JSON.stringify(trie), (err) => {
     if (err) {
         console.error(err);
     }
