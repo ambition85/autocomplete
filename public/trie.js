@@ -47,7 +47,7 @@ export class Trie {
         }
     }
 
-    suggest(prefix, limit = 30) {
+    suggest(prefix, limit = 30, sort = true) {
         let len = 0;
         let curr = this.root;
         while (prefix.length > len) {
@@ -59,7 +59,9 @@ export class Trie {
         }
         const suggestions = [];
         this.find(prefix, curr, suggestions, limit);
-        suggestions.sort((a, b) => (a.weight > b.weight ? -1 : 1));
+        if (sort) {
+            suggestions.sort((a, b) => (a.weight > b.weight ? -1 : 1));
+        }
         return suggestions.map((a) => ({ name: a.name, char: a.name }));
     }
 
