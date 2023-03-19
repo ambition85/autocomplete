@@ -13,7 +13,7 @@ export default function Settings() {
     const weighResults = useSelector(selectWeighResults);
     const dispatch = useDispatch();
     return (
-        <div className="card text-bg-dark mb-3" style={{ height: "100%" }}>
+        <div className="card text-bg-dark" style={{ height: "40%" }}>
             <h4 className="card-header">Settings</h4>
             <div className="card-body">
                 <h6 className="card-title">
@@ -26,8 +26,8 @@ export default function Settings() {
                         type="range"
                         className="form-range"
                         min="10"
-                        max="100"
-                        step="1"
+                        max="1000"
+                        step="10"
                         value={searchLimit}
                         onChange={(e) =>
                             dispatch(changeSearchLimit(e.target.value))

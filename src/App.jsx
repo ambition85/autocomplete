@@ -4,8 +4,10 @@ import { Trie } from "../public/trie";
 import json from "./trie.json";
 import Navbar from "./navbar";
 import Settings from "./Settings";
+import Stats from "./Stats";
 
 import { connect } from "react-redux";
+import { changeNumResults, changeSearchTime } from "./reducers/stats-reducer";
 
 import "./App.css";
 import "@webscopeio/react-textarea-autocomplete/style.css";
@@ -14,13 +16,25 @@ const Item = ({ entity: { name, char } }) => <div>{`${name}`}</div>;
 const Loading = ({ data }) => <div>Loading...</div>;
 
 let trie = Trie.from(json);
-let limit = 50;
-let sort = true;
 
 class App extends Component {
     constructor(props) {
         super(props);
     }
+
+    giveSuggestions(word, limit, sort) {
+        const start = performance.now();
+        const suggestions = trie.suggest(word, limit, sort);
+        const timeTaken = performance.now() - start;
+
+        this.props.changeNumResults(Object.keys(suggestions).length);
+        this.props.changeSearchTime(
+            Math.round(timeTaken * 1000000) / 1000000 + " ms"
+        );
+
+        return suggestions;
+    }
+
     render() {
         return (
             <div className="container">
@@ -50,12 +64,11 @@ class App extends Component {
                             trigger={{
                                 " ": {
                                     dataProvider: (token) => {
-                                        return trie
-                                            .suggest(
-                                                token,
-                                                this.props.limit,
-                                                this.props.sort
-                                            )
+                                        return this.giveSuggestions(
+                                            token,
+                                            this.props.limit,
+                                            this.props.sort
+                                        )
                                             .slice(0, 10)
                                             .map(({ name, char }) => ({
                                                 name,
@@ -69,6 +82,7 @@ class App extends Component {
                         />
                     </div>
                     <div className="col-4">
+                        <Stats />
                         <Settings />
                     </div>
                 </div>
@@ -81,7 +95,14 @@ const mapStateToProps = (state) => {
     return {
         limit: state.settings.searchLimit,
         sort: state.settings.weighResults,
+        time: state.stats.searchTime,
+        res: state.stats.numResults,
     };
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = {
+    changeSearchTime,
+    changeNumResults,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
