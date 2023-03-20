@@ -13,7 +13,7 @@ export default function Settings() {
     const weighResults = useSelector(selectWeighResults);
     const dispatch = useDispatch();
     return (
-        <div className="card text-bg-dark" style={{ height: "40%" }}>
+        <div className="card text-bg-dark">
             <h4 className="card-header">Settings</h4>
             <div className="card-body">
                 <h6 className="card-title">

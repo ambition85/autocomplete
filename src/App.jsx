@@ -24,7 +24,7 @@ class App extends Component {
 
     giveSuggestions(word, limit, sort) {
         const start = performance.now();
-        const suggestions = trie.suggest(word, limit, sort);
+        const suggestions = trie.suggest(word.toLowerCase(), limit, sort);
         const timeTaken = performance.now() - start;
 
         this.props.changeNumResults(Object.keys(suggestions).length);
@@ -40,8 +40,9 @@ class App extends Component {
             <div className="container">
                 <Navbar />
 
-                <div className="row">
-                    <div className="col-8 mb-4">
+                <div className="row justify-content-center">
+                    <div className=".d-none .d-xxl-block .d-xl-block"></div>
+                    <div className="col-xxl-7 col-xl-7 col-8">
                         <ReactTextareaAutocomplete
                             className="form-control search"
                             loadingComponent={Loading}
@@ -53,8 +54,13 @@ class App extends Component {
                             innerRef={(textarea) => {
                                 this.textarea = textarea;
                             }}
+                            autoFocus
+                            style={{
+                                resize: "none",
+                                overflow: "auto",
+                            }}
                             containerStyle={{
-                                height: "75vh",
+                                height: "100%",
                             }}
                             dropdownStyle={{
                                 // backgroundColor: "#3b3b3b",
@@ -81,10 +87,11 @@ class App extends Component {
                             }}
                         />
                     </div>
-                    <div className="col-4">
+                    <div className="col-xxl-3 col-xl-3 col-4">
                         <Stats />
                         <Settings />
                     </div>
+                    <div className=".d-none .d-xxl-block .d-xl-block"></div>
                 </div>
             </div>
         );
