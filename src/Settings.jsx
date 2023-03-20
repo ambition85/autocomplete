@@ -4,13 +4,16 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     changeSearchLimit,
     selectSearchLimit,
+    changeWeighResults,
+    selectWeighResults,
 } from "./reducers/settings-reducer";
 
 export default function Settings() {
     const searchLimit = useSelector(selectSearchLimit);
+    const weighResults = useSelector(selectWeighResults);
     const dispatch = useDispatch();
     return (
-        <div className="card text-bg-dark mb-3" style={{ height: "75vh" }}>
+        <div className="card text-bg-dark mb-3" style={{ height: "100%" }}>
             <h4 className="card-header">Settings</h4>
             <div className="card-body">
                 <h6 className="card-title">
@@ -47,7 +50,10 @@ export default function Settings() {
                         type="checkbox"
                         role="switch"
                         id="flexSwitchCheckChecked"
-                        checked
+                        checked={weighResults}
+                        onChange={(e) =>
+                            dispatch(changeWeighResults(!weighResults))
+                        }
                     />
                 </p>
             </div>
