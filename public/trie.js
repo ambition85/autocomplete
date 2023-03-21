@@ -47,7 +47,7 @@ export class Trie {
         }
     }
 
-    suggest(prefix, limit = 30, sort = true) {
+    suggest(prefix, limit = Infinity, sort = true) {
         let len = 0;
         let curr = this.root;
         while (prefix.length > len) {

@@ -23,14 +23,15 @@ class App extends Component {
     }
 
     giveSuggestions(word, limit, sort) {
+        if (!this.props.maximum) {
+            limit = Infinity;
+        }
         const start = performance.now();
         const suggestions = trie.suggest(word.toLowerCase(), limit, sort);
         const timeTaken = performance.now() - start;
 
         this.props.changeNumResults(Object.keys(suggestions).length);
-        this.props.changeSearchTime(
-            Math.round(timeTaken * 1000000) / 1000000 + " ms"
-        );
+        this.props.changeSearchTime(Math.round(timeTaken * 100) / 100 + " ms");
 
         return suggestions;
     }
@@ -102,6 +103,7 @@ const mapStateToProps = (state) => {
     return {
         limit: state.settings.searchLimit,
         sort: state.settings.weighResults,
+        maximum: state.settings.limitResults,
         time: state.stats.searchTime,
         res: state.stats.numResults,
     };

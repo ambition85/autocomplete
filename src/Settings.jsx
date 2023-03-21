@@ -6,21 +6,34 @@ import {
     selectSearchLimit,
     changeWeighResults,
     selectWeighResults,
+    changeLimitResults,
+    selectLimitResults,
 } from "./reducers/settings-reducer";
 
 export default function Settings() {
     const searchLimit = useSelector(selectSearchLimit);
     const weighResults = useSelector(selectWeighResults);
+    const limitResults = useSelector(selectLimitResults);
     const dispatch = useDispatch();
     return (
         <div className="card text-bg-dark">
             <h4 className="card-header">Settings</h4>
             <div className="card-body">
-                <h6 className="card-title">
-                    <label htmlFor="searchLimit" className="form-label">
+                <span className="card-title form-check form-switch">
+                    <input
+                        className="form-check-input"
+                        type="checkbox"
+                        role="switch"
+                        id="searchLimit"
+                        checked={limitResults}
+                        onChange={(e) =>
+                            dispatch(changeLimitResults(!limitResults))
+                        }
+                    />
+                    <label htmlFor="searchLimit" className="form-label form-check-label">
                         Search Limit: {searchLimit}
                     </label>
-                </h6>
+                </span>
                 <p className="card-text">
                     <input
                         type="range"
@@ -32,6 +45,7 @@ export default function Settings() {
                         onChange={(e) =>
                             dispatch(changeSearchLimit(e.target.value))
                         }
+                        disabled={!limitResults}
                         id="searchLimit"
                     />
                 </p>
