@@ -4,7 +4,7 @@ export const settingsSlice = createSlice({
     name: "settings",
     initialState: {
         limitResults: false,
-        searchLimit: 10,
+        searchLimit: 100,
         weighResults: true,
     },
     reducers: {

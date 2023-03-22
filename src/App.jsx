@@ -42,8 +42,19 @@ class App extends Component {
                 <Navbar />
 
                 <div className="row justify-content-center">
-                    <div className=".d-none .d-xxl-block .d-xl-block"></div>
-                    <div className="col-xxl-7 col-xl-7 col-8">
+                    <div className="d-none col-1 d-xxl-block d-xl-block"></div>
+                    <div className="col-xxl-10 col-xl-10 col-12">
+                        <div className="alert" role="alert">
+                            Blazing fast autocomplete suggestions {"(< 1ms) "}
+                            using a weighted trie. TRIE it out!
+                        </div>
+                    </div>
+                    <div className="d-none col-1 d-xxl-block d-xl-block"></div>
+                </div>
+
+                <div className="row justify-content-center">
+                    <div className="d-none col-1 d-xxl-block d-xl-block"></div>
+                    <div className="col-xxl-7 col-xl-7 col-8 col-xs-7">
                         <ReactTextareaAutocomplete
                             className="form-control search"
                             loadingComponent={Loading}
@@ -88,11 +99,11 @@ class App extends Component {
                             }}
                         />
                     </div>
-                    <div className="col-xxl-3 col-xl-3 col-4">
+                    <div className="col-xxl-3 col-xl-3 col-4 col-xs-5">
                         <Stats />
                         <Settings />
                     </div>
-                    <div className=".d-none .d-xxl-block .d-xl-block"></div>
+                    <div className="d-none col-1 d-xxl-block d-xl-block"></div>
                 </div>
             </div>
         );
