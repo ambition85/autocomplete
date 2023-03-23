@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactTextareaAutocomplete from "@webscopeio/react-textarea-autocomplete";
 import { Trie } from "../public/trie";
 import json from "./trie.json";
-import Navbar from "./navbar";
+import Navbar from "./Navbar";
 import Settings from "./Settings";
 import Stats from "./Stats";
 
