@@ -2,12 +2,11 @@
 
 A React app with blazing fast sub millisecond autocomplete suggestions using weighted tries.
 
-# Usage
+## Usage
+
 ### [Check it out here](https://home.aveek.io/autocomplete/)
 
-
-
-# Development
+## Development
 
 Install all dependencies
 
@@ -15,7 +14,7 @@ Install all dependencies
 npm i
 ```
 
-## Build
+### Build
 
 To create the trie
 
@@ -24,7 +23,7 @@ cd data
 node build.js
 ```
 
-## Dev server
+### Dev server
 
 To run the dev server
 
@@ -32,7 +31,7 @@ To run the dev server
 npm run dev
 ```
 
-## Production
+### Production
 
 To build for production
 
