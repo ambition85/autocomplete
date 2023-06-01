@@ -4,7 +4,7 @@ import { Trie } from "../public/trie.js";
 
 const word_freq = {};
 
-const wordFreqFile = fs.readFileSync("./en_wikt_words_1_4-64.txt", "utf-8");
+const wordFreqFile = fs.readFileSync("./data/en_wikt_words_1_4-64.txt", "utf-8");
 
 wordFreqFile.split(/\r?\n/).forEach((line) => {
     let arr = line.split(" ");
@@ -20,7 +20,7 @@ for (let i = 1; i < arr.length; ++i) {
     }
 }
 
-const wordList = fs.readFileSync("./words_alpha.txt", "utf-8");
+const wordList = fs.readFileSync("./data/words_alpha.txt", "utf-8");
 
 const words = {};
 wordList.split(/\r?\n/).forEach((line) => {
@@ -31,16 +31,20 @@ wordList.split(/\r?\n/).forEach((line) => {
     }
 });
 
+console.log("Word list length:", Object.values(words).length);
+
+console.time("Build");
 let trie = new Trie();
 for (let word in words) {
     trie.insert(word, words[word]);
 }
 trie.sort();
+console.timeEnd("Build");
 
-console.time("save");
+console.time("Save");
 fs.writeFile("../src/trie.json", JSON.stringify(trie), (err) => {
     if (err) {
         console.error(err);
     }
 });
-console.timeEnd("save");
+console.timeEnd("Save");
