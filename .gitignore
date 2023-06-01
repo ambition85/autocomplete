@@ -1,4 +1,5 @@
 package-lock.json
+data/benchmark_results
 # Logs
 logs
 *.log

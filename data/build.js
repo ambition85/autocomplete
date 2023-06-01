@@ -24,10 +24,16 @@ const wordList = fs.readFileSync("./data/words_alpha.txt", "utf-8");
 
 const words = {};
 wordList.split(/\r?\n/).forEach((line) => {
-    if (line in word_freq && line.length <= 12) {
+    if (line in word_freq && line.length <= 12 && line.length > 3) {
         words[line] =
             Math.round((word_freq[line] / (max * (line.length - 3))) * 10000) /
             10000;
+    }
+});
+
+fs.writeFile("./data/words.json", JSON.stringify(words), (err) => {
+    if (err) {
+        console.error(err);
     }
 });
 
